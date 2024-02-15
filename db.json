@@ -1,1 +1,109 @@
-{"dogs":[{"name":"Nannie","image":"/assets/corgi.png","description":"inquisitively oof calm acupuncture whereas equatorial gosh effectuate","isFavorite":true,"id":0},{"name":"Brycen","image":"/assets/chihuahua.avif","description":"bottleful after baste obliterate putrid","isFavorite":false,"id":1},{"name":"Thurman","image":"/assets/boxer.png","description":"subtle though jade indeed before island aha","isFavorite":true,"id":2},{"name":"Orrin","image":"/assets/chihuahua.avif","description":"provided after despite till watcher","isFavorite":true,"id":3},{"name":"Lucie","image":"/assets/dalmation.png","description":"psst justly browsing all solid","isFavorite":false,"id":4},{"name":"Luella","image":"/assets/blue-heeler.png","description":"smoothly idolized naturally yum that till phew","isFavorite":false,"id":5},{"name":"Shannon","image":"/assets/cowardly.png","description":"invite insistent brr truthfully athwart bah straddle assassination","isFavorite":true,"id":6},{"name":"Imani","image":"/assets/dalmation.png","description":"rattle excluding skean on recovery","isFavorite":true,"id":7},{"name":"Danyka","image":"/assets/chihuahua.avif","description":"chillax daily sally however lest","isFavorite":true,"id":8},{"name":"Toby","image":"/assets/blue-heeler.png","description":"wildly forenenst rightfully till how","isFavorite":false,"id":9},{"name":"Tyson","image":"/assets/blue-heeler.png","description":"inequality maroon however nimble segregate","isFavorite":false,"id":10},{"name":"Eulalia","image":"/assets/boxer.png","description":"foolish rarely despite fooey frantically definitive jubilant dislike","isFavorite":true,"id":11},{"name":"Lawson","image":"/assets/cowardly.png","description":"uniform but wet cruelly knowledgeable","isFavorite":true,"id":12},{"name":"Cooper","image":"/assets/dalmation.png","description":"furthermore when righteously when handlebar breathe considering so","isFavorite":false,"id":13},{"name":"Melody","image":"/assets/chihuahua.avif","description":"demotivate above hmph exploit hatbox quaver these","isFavorite":false,"id":14},{"name":"Linda","image":"/assets/blue-heeler.png","description":"instead angelic kissingly easily apropos tempting crease","isFavorite":true,"id":15},{"name":"Dakota","image":"/assets/chihuahua.avif","description":"salad hopelessly loyally gah whoever","isFavorite":true,"id":16},{"name":"Stewart","image":"/assets/blue-heeler.png","description":"bad whoever obedient modulo investigation daily yum","isFavorite":true,"id":17},{"name":"Melyssa","image":"/assets/cowardly.png","description":"drat considering youthfully unfortunately whereas aside underline jealously","isFavorite":false,"id":18},{"name":"Korey","image":"/assets/chihuahua.avif","description":"loosely at bossy surprisingly friendly for well-lit seldom","isFavorite":false,"id":19}]}
+{
+  "dogs": [
+    {
+      "name": "Juvenal",
+      "image": "/assets/chihuahua.avif",
+      "description": "urban annul whoa so ultimately after from drat",
+      "isFavorite": false,
+      "id": 0
+    },
+    {
+      "name": "Gage",
+      "image": "/assets/dalmation.png",
+      "description": "like pull choreograph flout following um bullet parallel",
+      "isFavorite": false,
+      "id": 1
+    },
+    {
+      "name": "Domenico",
+      "image": "/assets/blue-heeler.png",
+      "description": "quarrelsomely overjoyed apprise yahoo considering",
+      "isFavorite": false,
+      "id": 2
+    },
+    {
+      "name": "Gladys",
+      "image": "/assets/chihuahua.avif",
+      "description": "successfully versus as journal off",
+      "isFavorite": false,
+      "id": 3
+    },
+    {
+      "name": "Liana",
+      "image": "/assets/dalmation.png",
+      "description": "sinful naturalisation wherever but frivolous wherever model",
+      "isFavorite": false,
+      "id": 5
+    },
+    {
+      "name": "Lolita",
+      "image": "/assets/blue-heeler.png",
+      "description": "favorable pish redesign besides fancy as geez sprout",
+      "isFavorite": true,
+      "id": 7
+    },
+    {
+      "name": "Cristina",
+      "image": "/assets/blue-heeler.png",
+      "description": "explicate however instead monger miserably psst outside bluff",
+      "isFavorite": true,
+      "id": 8
+    },
+    {
+      "name": "Francesca",
+      "image": "/assets/chihuahua.avif",
+      "description": "sunny bodge worth between rainy meh once",
+      "isFavorite": false,
+      "id": 10
+    },
+    {
+      "name": "Kelli",
+      "image": "/assets/blue-heeler.png",
+      "description": "until far whoa disaster housewife",
+      "isFavorite": false,
+      "id": 11
+    },
+    {
+      "name": "Wilford",
+      "image": "/assets/blue-heeler.png",
+      "description": "hmph what decrease even astride",
+      "isFavorite": false,
+      "id": 13
+    },
+    {
+      "name": "Broderick",
+      "image": "/assets/corgi.png",
+      "description": "titillate barge wherever alienate which",
+      "isFavorite": false,
+      "id": 14
+    },
+    {
+      "name": "Mohammad",
+      "image": "/assets/chihuahua.avif",
+      "description": "rotten worm an quietly considering yum even questionably",
+      "isFavorite": false,
+      "id": 15
+    },
+    {
+      "name": "Patricia",
+      "image": "/assets/corgi.png",
+      "description": "nor scarcely detonate whereas boohoo ack excellent what",
+      "isFavorite": true,
+      "id": 19
+    },
+    {
+      "name": "Dog",
+      "image": "/assets/blue-heeler.png",
+      "description": "Dog is a dog.",
+      "isFavorite": true,
+      "id": 21
+    },
+    {
+      "name": "Fido",
+      "image": "/assets/corgi.png",
+      "description": "Looks like a mutt",
+      "isFavorite": true,
+      "id": 23
+    }
+  ]
+}
