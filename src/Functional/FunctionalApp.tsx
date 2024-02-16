@@ -1,54 +1,16 @@
 import { useState, useEffect } from "react";
-import { Dog } from "../types";
+import { Dog, selectedTab } from "../types";
 import { FunctionalCreateDogForm } from "./FunctionalCreateDogForm";
 import { FunctionalDogs } from "./FunctionalDogs";
 import { FunctionalSection } from "./FunctionalSection";
-
-const serverURL = "http://localhost:3000/dogs";
-const getAllDogs = () => fetch(serverURL).then((response) => response.json());
-
-function setServerDogFavorite(id: number, fav: boolean) {
-  fetch(serverURL + "/" + id, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      isFavorite: fav,
-    }),
-    redirect: "follow",
-  });
-}
-
-function deleteServerDog(id: number) {
-  fetch(serverURL + "/" + id, {
-    method: "DELETE",
-  });
-}
-
-function addServerDog(name: string, description: string, img: string) {
-  fetch(serverURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: name,
-      image: img,
-      description: description,
-      isFavorite: false,
-    }),
-    redirect: "follow",
-  });
-}
+import { Requests } from "../api";
 
 export function FunctionalApp() {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const [tabSelected, setTabSelected] = useState<[boolean, boolean]>([
-    true,
-    false,
-  ]);
-
-  const [favoritesOn, createPopupOpen] = tabSelected;
+  const [tabSelected, setTabSelected] = useState<selectedTab>('none-selected');
 
   useEffect(() => {
-    getAllDogs().then(setAllDogs);
+    Requests.getAllDogs().then(setAllDogs);
   }, []);
 
   function setWebsiteDogFavorite(id: number, fav: boolean) {
@@ -78,21 +40,25 @@ export function FunctionalApp() {
 
   function deleteDog(id: number) {
     setAllDogs(allDogs.filter((dog) => dog.id != id));
-    deleteServerDog(id);
+    Requests.deleteDog(id);
   }
 
   function updateDogFav(id: number, fav: boolean) {
-    setServerDogFavorite(id, fav);
+    Requests.updateDog(id, fav);
     setWebsiteDogFavorite(id, fav);
   }
 
   function addDog(name: string, description: string, img: string) {
-    addServerDog(name, description, img);
+    Requests.postDog(name, description, img);
     addWebsiteDog(name, description, img);
   }
 
-  function closeCreatePopup() {
-    setTabSelected([favoritesOn, false]);
+  function filterDogs(dog: Dog, tab: selectedTab){
+    if(tab == 'none-selected'){
+      return true;
+    } else {
+      return dog.isFavorite == (tab=='favorited');
+    }
   }
 
   return (
@@ -105,17 +71,17 @@ export function FunctionalApp() {
         tabSelected={tabSelected}
         setTabSelected={setTabSelected}
       >
-        {!createPopupOpen && (
+        {tabSelected!='create-form' && (
           <FunctionalDogs
-            dogs={allDogs.filter((dog) => dog.isFavorite == favoritesOn)}
+            dogs={allDogs.filter((dog) => filterDogs(dog, tabSelected))}
             updateDogFav={updateDogFav}
             deleteDog={deleteDog}
           />
         )}
-        {createPopupOpen && (
+        {tabSelected=='create-form' && (
           <FunctionalCreateDogForm
             addDog={addDog}
-            closeCreatePopup={closeCreatePopup}
+            closeCreatePopup={()=>setTabSelected('none-selected')}
           />
         )}
       </FunctionalSection>
