@@ -7,7 +7,7 @@ export const Requests = {
   // should create a dog in the database from a partial dog object
   // and return a promise with the result
   postDog: (name: string, description: string, img: string) => {
-    fetch(serverURL, {
+    return fetch(serverURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -22,13 +22,13 @@ export const Requests = {
 
   // should delete a dog from the database
   deleteDog: (id: number) => {
-    fetch(serverURL + "/" + id, {
+    return fetch(serverURL + "/" + id, {
       method: "DELETE",
     });
   },
 
   updateDog: (id: number, fav: boolean) => {
-    fetch(serverURL + "/" + id, {
+    return fetch(serverURL + "/" + id, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -36,5 +36,5 @@ export const Requests = {
       }),
       redirect: "follow",
     });
-  }
+  },
 };

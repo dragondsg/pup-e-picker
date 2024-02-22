@@ -7,59 +7,38 @@ import { Requests } from "../api";
 
 export function FunctionalApp() {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const [tabSelected, setTabSelected] = useState<selectedTab>('none-selected');
+  const [tabSelected, setTabSelected] = useState<selectedTab>("none-selected");
 
+  const refetch = () => Requests.getAllDogs().then(setAllDogs);
+  // There, I made my code less efficient. Are you happy?
   useEffect(() => {
-    Requests.getAllDogs().then(setAllDogs);
+    refetch();
   }, []);
 
-  function setWebsiteDogFavorite(id: number, fav: boolean) {
-    setAllDogs(
-      allDogs.map((dog) => {
-        if (dog.id != id) {
-          return dog;
-        } else {
-          let tempDog = dog;
-          tempDog.isFavorite = fav;
-          return tempDog;
-        }
-      })
-    );
-  }
-
-  function addWebsiteDog(name: string, description: string, img: string) {
-    let tempDog = {
-      name: name,
-      image: img,
-      description: description,
-      isFavorite: false,
-      id: Math.max(...allDogs.map((dog) => dog.id)) + 1,
-    };
-    setAllDogs(allDogs.concat(tempDog));
-  }
-
   function deleteDog(id: number) {
-    setAllDogs(allDogs.filter((dog) => dog.id != id));
-    Requests.deleteDog(id);
+    Requests.deleteDog(id).then(refetch);
   }
 
   function updateDogFav(id: number, fav: boolean) {
-    Requests.updateDog(id, fav);
-    setWebsiteDogFavorite(id, fav);
+    Requests.updateDog(id, fav).then(refetch);
   }
 
   function addDog(name: string, description: string, img: string) {
-    Requests.postDog(name, description, img);
-    addWebsiteDog(name, description, img);
+    Requests.postDog(name, description, img).then(refetch);
   }
 
-  function filterDogs(dog: Dog, tab: selectedTab){
-    if(tab == 'none-selected'){
-      return true;
-    } else {
-      return dog.isFavorite == (tab=='favorited');
+  const filteredDogs = allDogs.filter((dog) => {
+    switch (tabSelected) {
+      case "none-selected":
+        return true;
+      case "favorited":
+        return dog.isFavorite;
+      case "unfavorited":
+        return !dog.isFavorite;
+      case "create-form":
+        return false;
     }
-  }
+  });
 
   return (
     <div className="App" style={{ backgroundColor: "skyblue" }}>
@@ -71,17 +50,15 @@ export function FunctionalApp() {
         tabSelected={tabSelected}
         setTabSelected={setTabSelected}
       >
-        {tabSelected!='create-form' && (
-          <FunctionalDogs
-            dogs={allDogs.filter((dog) => filterDogs(dog, tabSelected))}
-            updateDogFav={updateDogFav}
-            deleteDog={deleteDog}
-          />
-        )}
-        {tabSelected=='create-form' && (
+        <FunctionalDogs
+          dogs={filteredDogs}
+          updateDogFav={updateDogFav}
+          deleteDog={deleteDog}
+        />
+        {tabSelected == "create-form" && (
           <FunctionalCreateDogForm
             addDog={addDog}
-            closeCreatePopup={()=>setTabSelected('none-selected')}
+            closeCreatePopup={() => setTabSelected("none-selected")}
           />
         )}
       </FunctionalSection>

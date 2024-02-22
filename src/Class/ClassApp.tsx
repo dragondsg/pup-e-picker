@@ -7,72 +7,53 @@ import { Requests } from "../api";
 
 export class ClassApp extends Component {
   state: {
-    allDogs: Dog[],
-    tabSelected: selectedTab
+    allDogs: Dog[];
+    tabSelected: selectedTab;
   } = {
     allDogs: [],
-    tabSelected: 'none-selected'
+    tabSelected: "none-selected",
   };
 
   componentDidMount(): void {
-    Requests.getAllDogs().then((dogs) => {
-      this.setState({ allDogs: dogs });
-    });
+    Requests.getAllDogs().then((allDogs) =>
+      this.setState({
+        allDogs: allDogs,
+      })
+    );
   }
 
   render() {
-    const allDogs = this.state.allDogs;
-    const setAllDogs = (dogs: Dog[]) => {
-      this.setState({ allDogs: dogs });
+    const refetch = () =>
+      Requests.getAllDogs().then((allDogs) =>
+        this.setState({
+          allDogs: allDogs,
+        })
+      );
+
+    const deleteDog = (id: number) => {
+      Requests.deleteDog(id).then(refetch);
     };
 
-    const setWebsiteDogFavorite = (id: number, fav: boolean) => {
-      this.setState({
-        allDogs: allDogs.map((dog) => {
-          if (dog.id != id) {
-            return dog;
-          } else {
-            let tempDog = dog;
-            tempDog.isFavorite = fav;
-            return tempDog;
-          }
-        }),
-      });
+    const updateDogFav = (id: number, fav: boolean) => {
+      Requests.updateDog(id, fav).then(refetch);
     };
 
-    function addWebsiteDog(name: string, description: string, img: string) {
-      let tempDog = {
-        name: name,
-        image: img,
-        description: description,
-        isFavorite: false,
-        id: Math.max(...allDogs.map((dog) => dog.id)) + 1,
-      };
-      setAllDogs(allDogs.concat(tempDog));
-    }
+    const addDog = (name: string, description: string, img: string) => {
+      Requests.postDog(name, description, img).then(refetch);
+    };
 
-    function deleteDog(id: number) {
-      setAllDogs(allDogs.filter((dog) => dog.id != id));
-      Requests.deleteDog(id);
-    }
-
-    function updateDogFav(id: number, fav: boolean) {
-      Requests.updateDog(id, fav);
-      setWebsiteDogFavorite(id, fav);
-    }
-
-    function addDog(name: string, description: string, img: string) {
-      Requests.postDog(name, description, img);
-      addWebsiteDog(name, description, img);
-    }
-
-    function filterDogs(dog: Dog, tab: selectedTab){
-      if(tab == 'none-selected'){
-        return true;
-      } else {
-        return dog.isFavorite == (tab=='favorited');
+    const filteredDogs = this.state.allDogs.filter((dog) => {
+      switch (this.state.tabSelected) {
+        case "none-selected":
+          return true;
+        case "favorited":
+          return dog.isFavorite;
+        case "unfavorited":
+          return !dog.isFavorite;
+        case "create-form":
+          return false;
       }
-    }
+    });
 
     return (
       <div className="App" style={{ backgroundColor: "orange" }}>
@@ -80,25 +61,23 @@ export class ClassApp extends Component {
           <h1>pup-e-picker (Class)</h1>
         </header>
         <ClassSection
-          allDogs={allDogs}
+          allDogs={this.state.allDogs}
           tabSelected={this.state.tabSelected}
           setTabSelected={(tab) => {
             this.setState({ tabSelected: tab });
           }}
         >
-          {this.state.tabSelected!='create-form' && (
-            <ClassDogs
-              dogs={allDogs.filter(
-                (dog) => filterDogs(dog, this.state.tabSelected)
-              )}
-              updateDogFav={updateDogFav}
-              deleteDog={deleteDog}
-            />
-          )}
-          {this.state.tabSelected=='create-form' && (
+          <ClassDogs
+            dogs={filteredDogs}
+            updateDogFav={updateDogFav}
+            deleteDog={deleteDog}
+          />
+          {this.state.tabSelected == "create-form" && (
             <ClassCreateDogForm
               addDog={addDog}
-              closeCreatePopup={() => this.setState({ tabSelected: 'none-selected' })}
+              closeCreatePopup={() =>
+                this.setState({ tabSelected: "none-selected" })
+              }
             />
           )}
         </ClassSection>
