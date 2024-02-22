@@ -10,7 +10,7 @@ export function FunctionalApp() {
   const [tabSelected, setTabSelected] = useState<selectedTab>("none-selected");
 
   const refetch = () => Requests.getAllDogs().then(setAllDogs);
-  // There, I made my code less efficient. Are you happy?
+
   useEffect(() => {
     refetch();
   }, []);
