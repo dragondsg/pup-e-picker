@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Dog, selectedTab } from "../types";
+import { Dog, SelectedTab } from "../types";
 
 export const FunctionalSection = ({
   children,
@@ -10,8 +10,8 @@ export const FunctionalSection = ({
 }: {
   children: ReactNode;
   allDogs: Dog[];
-  tabSelected: selectedTab;
-  setTabSelected: React.Dispatch<React.SetStateAction<selectedTab>>;
+  tabSelected: SelectedTab;
+  setTabSelected: React.Dispatch<React.SetStateAction<SelectedTab>>;
 }) => {
   return (
     <section id="main-section">
@@ -24,13 +24,13 @@ export const FunctionalSection = ({
           {/* This should display the favorited count */}
           <div
             className={
-              tabSelected=='favorited' ? `selector active` : `selector`
+              tabSelected == "favorited" ? `selector active` : `selector`
             }
             onClick={() => {
-              if (tabSelected=='favorited') {
-                setTabSelected('none-selected');
+              if (tabSelected == "favorited") {
+                setTabSelected("none-selected");
               } else {
-                setTabSelected('favorited');
+                setTabSelected("favorited");
               }
             }}
           >
@@ -40,25 +40,27 @@ export const FunctionalSection = ({
           {/* This should display the unfavorited count */}
           <div
             className={
-              tabSelected=='unfavorited' ? `selector active` : `selector`
+              tabSelected == "unfavorited" ? `selector active` : `selector`
             }
             onClick={() => {
-              if (tabSelected=='unfavorited') {
-                setTabSelected('none-selected');
+              if (tabSelected == "unfavorited") {
+                setTabSelected("none-selected");
               } else {
-                setTabSelected('unfavorited');
+                setTabSelected("unfavorited");
               }
             }}
           >
             unfavorited ( {allDogs.filter((dog) => !dog.isFavorite).length} )
           </div>
           <div
-            className={tabSelected=='create-form' ? `selector active` : `selector`}
+            className={
+              tabSelected == "create-form" ? `selector active` : `selector`
+            }
             onClick={() => {
-              if (tabSelected=='create-form') {
-                setTabSelected('none-selected');
+              if (tabSelected == "create-form") {
+                setTabSelected("none-selected");
               } else {
-                setTabSelected('create-form');
+                setTabSelected("create-form");
               }
             }}
           >

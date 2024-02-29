@@ -1,12 +1,12 @@
 import { Component, ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Dog, selectedTab } from "../types";
+import { Dog, SelectedTab } from "../types";
 
 export class ClassSection extends Component<{
   children: ReactNode;
   allDogs: Dog[];
-  tabSelected: selectedTab;
-  setTabSelected: (tab: selectedTab) => void;
+  tabSelected: SelectedTab;
+  setTabSelected: (tab: SelectedTab) => void;
 }> {
   render() {
     return (
@@ -20,13 +20,15 @@ export class ClassSection extends Component<{
             {/* This should display the favorited count */}
             <div
               className={
-                this.props.tabSelected=='favorited' ? `selector active` : `selector`
+                this.props.tabSelected == "favorited"
+                  ? `selector active`
+                  : `selector`
               }
               onClick={() => {
-                if (this.props.tabSelected=='favorited') {
-                  this.props.setTabSelected('none-selected');
+                if (this.props.tabSelected == "favorited") {
+                  this.props.setTabSelected("none-selected");
                 } else {
-                  this.props.setTabSelected('favorited');
+                  this.props.setTabSelected("favorited");
                 }
               }}
             >
@@ -37,13 +39,15 @@ export class ClassSection extends Component<{
             {/* This should display the unfavorited count */}
             <div
               className={
-                this.props.tabSelected=='unfavorited' ? `selector active` : `selector`
+                this.props.tabSelected == "unfavorited"
+                  ? `selector active`
+                  : `selector`
               }
               onClick={() => {
-                if (this.props.tabSelected=='unfavorited') {
-                  this.props.setTabSelected('none-selected');
+                if (this.props.tabSelected == "unfavorited") {
+                  this.props.setTabSelected("none-selected");
                 } else {
-                  this.props.setTabSelected('unfavorited');
+                  this.props.setTabSelected("unfavorited");
                 }
               }}
             >
@@ -51,12 +55,16 @@ export class ClassSection extends Component<{
               {this.props.allDogs.filter((dog) => !dog.isFavorite).length} )
             </div>
             <div
-              className={this.props.tabSelected=='create-form' ? `selector active` : `selector`}
+              className={
+                this.props.tabSelected == "create-form"
+                  ? `selector active`
+                  : `selector`
+              }
               onClick={() => {
-                if (this.props.tabSelected=='create-form') {
-                  this.props.setTabSelected('none-selected');
+                if (this.props.tabSelected == "create-form") {
+                  this.props.setTabSelected("none-selected");
                 } else {
-                  this.props.setTabSelected('create-form');
+                  this.props.setTabSelected("create-form");
                 }
               }}
             >

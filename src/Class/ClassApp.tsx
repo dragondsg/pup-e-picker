@@ -2,13 +2,14 @@ import { Component } from "react";
 import { ClassSection } from "./ClassSection";
 import { ClassDogs } from "./ClassDogs";
 import { ClassCreateDogForm } from "./ClassCreateDogForm";
-import { Dog, selectedTab } from "../types";
+import { Dog, SelectedTab } from "../types";
 import { Requests } from "../api";
+import { toast } from "react-hot-toast";
 
 export class ClassApp extends Component {
   state: {
     allDogs: Dog[];
-    tabSelected: selectedTab;
+    tabSelected: SelectedTab;
   } = {
     allDogs: [],
     tabSelected: "none-selected",
@@ -31,15 +32,36 @@ export class ClassApp extends Component {
       );
 
     const deleteDog = (id: number) => {
-      Requests.deleteDog(id).then(refetch);
+      return Requests.deleteDog(id)
+        .then(refetch)
+        .then(() => {
+          toast.success("Dog deleted.");
+        })
+        .catch(() => {
+          toast.error("Dog failed to delete.");
+        });
     };
 
     const updateDogFav = (id: number, fav: boolean) => {
-      Requests.updateDog(id, fav).then(refetch);
+      return Requests.updateDog(id, fav)
+        .then(refetch)
+        .then(() => {
+          toast.success("Dog updated.");
+        })
+        .catch(() => {
+          toast.error("Dog failed to update.");
+        });
     };
 
     const addDog = (name: string, description: string, img: string) => {
-      Requests.postDog(name, description, img).then(refetch);
+      return Requests.postDog(name, description, img)
+        .then(refetch)
+        .then(() => {
+          toast.success("Dog added.");
+        })
+        .catch(() => {
+          toast.error("Dog failed to add.");
+        });
     };
 
     const filteredDogs = this.state.allDogs.filter((dog) => {
@@ -73,12 +95,7 @@ export class ClassApp extends Component {
             deleteDog={deleteDog}
           />
           {this.state.tabSelected == "create-form" && (
-            <ClassCreateDogForm
-              addDog={addDog}
-              closeCreatePopup={() =>
-                this.setState({ tabSelected: "none-selected" })
-              }
-            />
+            <ClassCreateDogForm addDog={addDog} />
           )}
         </ClassSection>
       </div>

@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { Dog, selectedTab } from "../types";
+import { Dog, SelectedTab } from "../types";
 import { FunctionalCreateDogForm } from "./FunctionalCreateDogForm";
 import { FunctionalDogs } from "./FunctionalDogs";
 import { FunctionalSection } from "./FunctionalSection";
 import { Requests } from "../api";
+import { toast } from "react-hot-toast";
 
 export function FunctionalApp() {
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
-  const [tabSelected, setTabSelected] = useState<selectedTab>("none-selected");
+  const [tabSelected, setTabSelected] = useState<SelectedTab>("none-selected");
 
   const refetch = () => Requests.getAllDogs().then(setAllDogs);
 
@@ -16,15 +17,36 @@ export function FunctionalApp() {
   }, []);
 
   function deleteDog(id: number) {
-    Requests.deleteDog(id).then(refetch);
+    return Requests.deleteDog(id)
+      .then(refetch)
+      .then(() => {
+        toast.success("Dog deleted.");
+      })
+      .catch(() => {
+        toast.error("Dog failed to delete.");
+      });
   }
 
   function updateDogFav(id: number, fav: boolean) {
-    Requests.updateDog(id, fav).then(refetch);
+    return Requests.updateDog(id, fav)
+      .then(refetch)
+      .then(() => {
+        toast.success("Dog updated.");
+      })
+      .catch(() => {
+        toast.error("Dog failed to update.");
+      });
   }
 
   function addDog(name: string, description: string, img: string) {
-    Requests.postDog(name, description, img).then(refetch);
+    return Requests.postDog(name, description, img)
+      .then(refetch)
+      .then(() => {
+        toast.success("Dog added.");
+      })
+      .catch(() => {
+        toast.error("Dog failed to add.");
+      });
   }
 
   const filteredDogs = allDogs.filter((dog) => {
@@ -56,10 +78,7 @@ export function FunctionalApp() {
           deleteDog={deleteDog}
         />
         {tabSelected == "create-form" && (
-          <FunctionalCreateDogForm
-            addDog={addDog}
-            closeCreatePopup={() => setTabSelected("none-selected")}
-          />
+          <FunctionalCreateDogForm addDog={addDog} />
         )}
       </FunctionalSection>
     </div>

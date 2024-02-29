@@ -6,10 +6,8 @@ const defaultSelectedImage = dogPictures.BlueHeeler;
 
 export const FunctionalCreateDogForm = ({
   addDog,
-  closeCreatePopup,
 }: {
   addDog: (name: string, description: string, img: string) => void;
-  closeCreatePopup: () => void;
 }) => {
   const [dogName, setDogName] = useState<string>("");
   const [dogDescription, setDescription] = useState<string>("");
@@ -22,7 +20,6 @@ export const FunctionalCreateDogForm = ({
       onSubmit={(e) => {
         e.preventDefault();
         addDog(dogName, dogDescription, dogImg);
-        closeCreatePopup();
       }}
     >
       <h4>Create a New Dog</h4>

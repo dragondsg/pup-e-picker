@@ -5,7 +5,6 @@ const defaultSelectedImage = dogPictures.BlueHeeler;
 
 export class ClassCreateDogForm extends Component<{
   addDog: (name: string, description: string, img: string) => void;
-  closeCreatePopup: () => void;
 }> {
   state: {
     dogName: string;
@@ -23,8 +22,11 @@ export class ClassCreateDogForm extends Component<{
         id="create-dog-form"
         onSubmit={(e) => {
           e.preventDefault();
-          this.props.addDog(this.state.dogName, this.state.dogDescription, this.state.dogImg);
-          this.props.closeCreatePopup();
+          this.props.addDog(
+            this.state.dogName,
+            this.state.dogDescription,
+            this.state.dogImg
+          );
         }}
       >
         <h4>Create a New Dog</h4>
