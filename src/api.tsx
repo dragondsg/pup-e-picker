@@ -17,6 +17,10 @@ export const Requests = {
         isFavorite: false,
       }),
       redirect: "follow",
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error("Unable to find dog.");
+      }
     });
   },
 

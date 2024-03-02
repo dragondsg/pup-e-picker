@@ -9,6 +9,21 @@ export class ClassSection extends Component<{
   setTabSelected: (tab: SelectedTab) => void;
 }> {
   render() {
+    const favoritedDogsCount = this.props.allDogs.filter(
+      (dog) => dog.isFavorite
+    ).length;
+    const unfavoritedDogsCount = this.props.allDogs.filter(
+      (dog) => !dog.isFavorite
+    ).length;
+
+    const toggleTab = (tab: SelectedTab) => {
+      if (this.props.tabSelected == tab) {
+        this.props.setTabSelected("none-selected");
+      } else {
+        this.props.setTabSelected(tab);
+      }
+    };
+
     return (
       <section id="main-section">
         <div className="container-header">
@@ -25,15 +40,10 @@ export class ClassSection extends Component<{
                   : `selector`
               }
               onClick={() => {
-                if (this.props.tabSelected == "favorited") {
-                  this.props.setTabSelected("none-selected");
-                } else {
-                  this.props.setTabSelected("favorited");
-                }
+                toggleTab("favorited");
               }}
             >
-              favorited ({" "}
-              {this.props.allDogs.filter((dog) => dog.isFavorite).length} )
+              favorited ( {favoritedDogsCount} )
             </div>
 
             {/* This should display the unfavorited count */}
@@ -44,15 +54,10 @@ export class ClassSection extends Component<{
                   : `selector`
               }
               onClick={() => {
-                if (this.props.tabSelected == "unfavorited") {
-                  this.props.setTabSelected("none-selected");
-                } else {
-                  this.props.setTabSelected("unfavorited");
-                }
+                toggleTab("unfavorited");
               }}
             >
-              unfavorited ({" "}
-              {this.props.allDogs.filter((dog) => !dog.isFavorite).length} )
+              unfavorited ( {unfavoritedDogsCount} )
             </div>
             <div
               className={
@@ -61,11 +66,7 @@ export class ClassSection extends Component<{
                   : `selector`
               }
               onClick={() => {
-                if (this.props.tabSelected == "create-form") {
-                  this.props.setTabSelected("none-selected");
-                } else {
-                  this.props.setTabSelected("create-form");
-                }
+                toggleTab("create-form");
               }}
             >
               create dog

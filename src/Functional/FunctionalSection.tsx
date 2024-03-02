@@ -13,6 +13,17 @@ export const FunctionalSection = ({
   tabSelected: SelectedTab;
   setTabSelected: React.Dispatch<React.SetStateAction<SelectedTab>>;
 }) => {
+  const favoritedDogsCount = allDogs.filter((dog) => dog.isFavorite).length;
+  const unfavoritedDogsCount = allDogs.filter((dog) => !dog.isFavorite).length;
+
+  function toggleTab( tab:SelectedTab ){
+    if (tabSelected == tab) {
+      setTabSelected("none-selected");
+    } else {
+      setTabSelected(tab);
+    }
+  }
+
   return (
     <section id="main-section">
       <div className="container-header">
@@ -27,14 +38,10 @@ export const FunctionalSection = ({
               tabSelected == "favorited" ? `selector active` : `selector`
             }
             onClick={() => {
-              if (tabSelected == "favorited") {
-                setTabSelected("none-selected");
-              } else {
-                setTabSelected("favorited");
-              }
+              toggleTab("favorited")
             }}
           >
-            favorited ( {allDogs.filter((dog) => dog.isFavorite).length} )
+            favorited ( {favoritedDogsCount} )
           </div>
 
           {/* This should display the unfavorited count */}
@@ -43,25 +50,17 @@ export const FunctionalSection = ({
               tabSelected == "unfavorited" ? `selector active` : `selector`
             }
             onClick={() => {
-              if (tabSelected == "unfavorited") {
-                setTabSelected("none-selected");
-              } else {
-                setTabSelected("unfavorited");
-              }
+              toggleTab("unfavorited")
             }}
           >
-            unfavorited ( {allDogs.filter((dog) => !dog.isFavorite).length} )
+            unfavorited ( {unfavoritedDogsCount} )
           </div>
           <div
             className={
               tabSelected == "create-form" ? `selector active` : `selector`
             }
             onClick={() => {
-              if (tabSelected == "create-form") {
-                setTabSelected("none-selected");
-              } else {
-                setTabSelected("create-form");
-              }
+              toggleTab("create-form")
             }}
           >
             create dog

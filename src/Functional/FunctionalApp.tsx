@@ -29,13 +29,13 @@ export function FunctionalApp() {
 
   function updateDogFav(id: number, fav: boolean) {
     return Requests.updateDog(id, fav)
-      .then(refetch)
-      .then(() => {
+      .then(refetch);
+      /*.then(() => {
         toast.success("Dog updated.");
       })
       .catch(() => {
         toast.error("Dog failed to update.");
-      });
+      });*/
   }
 
   function addDog(name: string, description: string, img: string) {
