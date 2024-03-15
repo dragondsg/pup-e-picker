@@ -1,18 +1,19 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Dog, SelectedTab } from "../types";
+import { SelectedTab } from "../types";
+import { DogsContext } from "../Providers/DogProvider";
 
 export const FunctionalSection = ({
   children,
-  allDogs,
   tabSelected,
   setTabSelected,
 }: {
   children: ReactNode;
-  allDogs: Dog[];
   tabSelected: SelectedTab;
   setTabSelected: React.Dispatch<React.SetStateAction<SelectedTab>>;
 }) => {
+  const {allDogs, setAllDogs} = useContext(DogsContext);
+
   const favoritedDogsCount = allDogs.filter((dog) => dog.isFavorite).length;
   const unfavoritedDogsCount = allDogs.filter((dog) => !dog.isFavorite).length;
 

@@ -6,11 +6,15 @@ import { Dog, SelectedTab } from "../types";
 import { Requests } from "../api";
 import { toast } from "react-hot-toast";
 
-export class ClassApp extends Component {
-  state: {
-    allDogs: Dog[];
-    tabSelected: SelectedTab;
-  } = {
+type ClassAppStateType = {
+  allDogs: Dog[];
+  tabSelected: SelectedTab;
+};
+export class ClassApp extends Component<
+  Record<string, never>,
+  ClassAppStateType
+> {
+  state: ClassAppStateType = {
     allDogs: [],
     tabSelected: "none-selected",
   };
@@ -43,14 +47,7 @@ export class ClassApp extends Component {
     };
 
     const updateDogFav = (id: number, fav: boolean) => {
-      return Requests.updateDog(id, fav)
-        .then(refetch);
-        /*.then(() => {
-          toast.success("Dog updated.");
-        })
-        .catch(() => {
-          toast.error("Dog failed to update.");
-        });*/
+      return Requests.updateDog(id, fav).then(refetch);
     };
 
     const addDog = (name: string, description: string, img: string) => {

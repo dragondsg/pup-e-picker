@@ -9,6 +9,7 @@ import "./index.css";
 import { ClassApp } from "./Class/ClassApp.tsx";
 import { Toaster } from "react-hot-toast";
 import { Playground } from "./Playground.tsx";
+import { DogsProvider } from "./Providers/DogProvider";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <DogsProvider>
     <Toaster />
     <RouterProvider router={router} />
+    </DogsProvider>
   </React.StrictMode>
 );
